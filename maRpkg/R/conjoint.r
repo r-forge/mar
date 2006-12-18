@@ -17,6 +17,7 @@
 #        design variables (and functions to set
 #        them
 
+
 ## where the work is done
 
 conjoint <- function(x, design, contr.sum=FALSE, ...) {
@@ -47,6 +48,54 @@ conjoint <- function(x, design, contr.sum=FALSE, ...) {
     class(obj) <- "conjoint"
     obj
 }
+
+
+# compute the relative importance (aggregable)
+
+importance <- function(object, ...) {
+    z <- t(sapply(object$models, function(z) {
+        if (attr(terms(z),"intercept") != 1)
+           stop("missing intercept")
+        x <- model.matrix(z)[,-1]
+        x <- x * rep(coef(z)[-1],each=dim(x)[1])
+        x <- apply(x,1,function(x) tapply(x,z$assign[-1],sum))
+        x <- apply(x,1,max) - apply(x,1,min)
+        x / sum(x)
+    }))
+    colnames(z) <- colnames(object$models[[1]]$model)[-1]
+    z
+}
+
+# compute normalized part-worths, i.e we
+# expand the models and scale to [0,1] 
+# (aggregable)
+
+utility <- function(object, unlist=FALSE, ...) {
+    x <- lapply(object$models, function(z) {
+        if (attr(terms(z),"intercept") != 1)
+           stop("missing intercept")
+        x <- model.matrix(z)[,-1]
+        x <- x * rep(coef(z)[-1],each=dim(x)[1])
+        x <- apply(x,1,function(x) tapply(x,z$assign[-1],sum))
+        x <- x - apply(x,1,min)
+        x <- x / sum(apply(x,1,max))
+        x <- as.data.frame(t(x))
+        x <- lapply(seq(length(x)),function(k)
+            tapply(x[[k]],z$model[[k+1]],function(x)x[1]))
+        names(x) <- names(z$model)[-1]
+        x
+    })
+    if (unlist) {
+       z <- unlist(lapply(seq(length(x[[1]])),function(z)
+           rep(z,length(x[[1]][[z]]))))
+       x <- t(sapply(x,function(x) unlist(x)))
+       attr(x,"assign") <- z
+       attr(x,"xlevels") <- object$models[[1]]$xlevels
+    }
+    x
+}
+
+
 
 ##############################################
 ## conjoint methods
@@ -120,51 +169,6 @@ choice.conjoint <- function(object, method=c("hard","exp","power"), p=1,
     z
 }
 
-
-# compute the relative importance (aggregable)
-
-importance <- function(object, ...) {
-    z <- t(sapply(object$models, function(z) {
-        if (attr(terms(z),"intercept") != 1)
-           stop("missing intercept")
-        x <- model.matrix(z)[,-1]
-        x <- x * rep(coef(z)[-1],each=dim(x)[1])
-        x <- apply(x,1,function(x) tapply(x,z$assign[-1],sum))
-        x <- apply(x,1,max) - apply(x,1,min)
-        x / sum(x)
-    }))
-    colnames(z) <- colnames(object$models[[1]]$model)[-1]
-    z
-}
-
-# compute normalized part-worths, i.e we
-# expand the models and scale to [0,1] 
-# (aggregable)
-
-utility <- function(object, unlist=FALSE, ...) {
-    x <- lapply(object$models, function(z) {
-        if (attr(terms(z),"intercept") != 1)
-           stop("missing intercept")
-        x <- model.matrix(z)[,-1]
-        x <- x * rep(coef(z)[-1],each=dim(x)[1])
-        x <- apply(x,1,function(x) tapply(x,z$assign[-1],sum))
-        x <- x - apply(x,1,min)
-        x <- x / sum(apply(x,1,max))
-        x <- as.data.frame(t(x))
-        x <- lapply(seq(length(x)),function(k)
-            tapply(x[[k]],z$model[[k+1]],function(x)x[1]))
-        names(x) <- names(z$model)[-1]
-        x
-    })
-    if (unlist) {
-       z <- unlist(lapply(seq(length(x[[1]])),function(z)
-           rep(z,length(x[[1]][[z]]))))
-       x <- t(sapply(x,function(x) unlist(x)))
-       attr(x,"assign") <- z
-       attr(x,"xlevels") <- object$models[[1]]$xlevels
-    }
-    x
-}
 
 ## given normalized utilities we can compute
 ## importance like so

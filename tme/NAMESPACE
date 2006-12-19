@@ -1,0 +1,26 @@
+export(
+       ## Conjoint exports
+       "conjoint",
+       "importance",
+       "utility",
+       "is.conjoint",
+       "choice",
+       "expand.design",
+       "as.indicator",
+       "score",
+       "importance.utility",
+       "pl.utility"
+)
+
+## conjoint methods
+S3method("print","conjoint")
+S3method("fitted","conjoint")
+S3method("residuals","conjoint")
+S3method("predict","conjoint")
+S3method("coef","conjoint")
+S3method("residuals","conjoint")
+S3method("choice","conjoint")
+
+## choice methods
+S3method("print","choice")
+S3method("summary","choice")

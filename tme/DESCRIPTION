@@ -1,0 +1,10 @@
+Package: tme
+Type: Package
+Title: Teaching Marketing Engineering with R
+Version: 0.1
+Date: 2006-12-19
+Author: Christian Buchta and Stefan Theussl
+Maintainer: Stefan Theussl <stefan.theussl@wu-wien.ac.at>
+Depends: R (>= 2.4.0)
+Description: This package is a collection of tools such as conjoint analysis for teaching Marketing Engineering with R. 
+License: GPL version 2.1 or newer

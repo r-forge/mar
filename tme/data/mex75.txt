@@ -1,0 +1,17 @@
+Crust Topping Type Amount Price Pref
+ 1   pan  pineapple    romano 2 9.99  0
+ 2  thin  pineapple     mixed 6 8.99 43
+ 3 thick  pineapple mozarella 4 8.99 53
+ 4  thin  pineapple     mixed 4 7.99 56
+ 5   pan     veggie     mixed 4 8.99 41
+ 6  thin     veggie    romano 4 7.99 63
+ 7 thick     veggie     mixed 6 9.99 38
+ 8  thin     veggie mozarella 2 8.99 53
+ 9 thick  pepperoni mozarella 6 7.99 68
+10  thin  pepperoni     mixed 2 8.99 46
+11   pan  pepperoni    romano 4 8.99 80
+12  thin  pepperoni     mixed 4 9.99 58
+13   pan    sausage     mixed 4 8.99 61
+14  thin    sausage mozarella 4 9.99 57
+15 thick    sausage     mixed 2 7.99 83
+16  thin    sausage    romano 6 8.99 70

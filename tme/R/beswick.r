@@ -48,7 +48,7 @@ beswick <- function(g, c=0.2, margin=0.1, cost=1, cost.fixed=0,
     
     f <- forward(g[-1],b=g[1],c=c)
 
-    print(f)
+    if(verbose) print(f)
 
     n <- 0
     p <- 0
@@ -70,15 +70,43 @@ beswick <- function(g, c=0.2, margin=0.1, cost=1, cost.fixed=0,
     }
     n <- n - 1
     rownames(b) <- names(g)
-    list(profit=p, size=n, sales=b[,1],effort=b[,2]/n)
+    out <- list(profit=p, size=n, sales=b[,1],effort=b[,2]/(100*n))
+    class(out) <- "beswick"
+    out
 }
+
+## methods
+
+print.beswick <- function(x){
+  if(!inherits(x,"beswick")) stop("'x' must be of class 'beswick'")
+  writeLines(paste("maximized profit:",x$profit))
+  writeLines(paste("salesforce size:",x$size))
+  invisible(x)
+}
+
+coef.beswick <- function(x){
+  if(!inherits(x,"beswick")) stop("'x' must be of class 'beswick'")
+  x$effort
+}
+
+## Calculation of parameters zi (or gi) derived from non-linear regression (see Beswick 1977)
+
+performanceIndicators <- function(w,c,p,m){
+  if(any(lapply(list(w,c,p,m),length)!= length(w))) stop("Input parameters must have the same length")
+  z <- 0.3258*(w/mean(w))^0.172*(c/mean(c))^0.646*p*(m/mean(m))^0.105
+  z
+}
+
+
+
+
 
 # test
 
-#g <- c(75.36, 28.76, 36.21, 43.28, 56.65, 69.27, 63.04)
-#names(g) <- LETTERS[seq(g)]
+g <- c(75.36, 28.76, 36.21, 43.28, 56.65, 69.27, 63.04)
+names(g) <- LETTERS[seq(g)]
 
-#bm <- beswick(g, verbose=TRUE) 
+bm <- beswick(g, verbose=TRUE) 
 #print(bm)
 
 ###

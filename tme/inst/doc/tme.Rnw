@@ -1,0 +1,114 @@
+\documentclass[10pt,a4paper,fleqn]{article}
+
+\usepackage{a4wide}
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{6pt plus 2pt minus 1pt}
+
+\usepackage[round,longnamesfirst]{natbib}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\newcommand{\strong}[1]{{\normalfont\fontseries{b}\selectfont #1}}
+\newcommand{\class}[1]{\mbox{\textsf{#1}}}
+\newcommand{\func}[1]{\mbox{\texttt{#1()}}}
+\newcommand{\code}[1]{\mbox{\texttt{#1}}}
+\newcommand{\pkg}[1]{\strong{#1}}
+\newcommand{\samp}[1]{`\mbox{\texttt{#1}}'}
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\set}[1]{\mathcal{#1}}
+
+\usepackage{Sweave}
+%% \VignetteIndexEntry{Teaching Marketing Engineering}
+
+
+
+\begin{document}
+
+
+<<echo=FALSE>>=
+options(width = 75)
+### for sampling
+set.seed(1707)
+@
+
+\title{Introduction to \pkg{tme} -- Teaching Marketing Engineering
+  with R} 
+\author{Christian Buchta and Stefan Theuﬂl}
+\maketitle
+\sloppy
+
+\abstract{The aim of this package is to provide tools for marketing
+  engineering in an illustrative way. It's purpose is mainly for teaching.}
+
+\section{Introduction}\label{sec:intro}
+This manual is divided in several chapters. In each chapter, one field
+of marketing engineering is going to be described.
+
+
+%%\section{Market Response Models}\label{sec:responsemodels}
+%%\subsection{Theory}\label{responsemodels:theory}
+%%\subsection{Computational Infrastructure}\label{responsemodels:infrastructure}
+%%\subsection{Examples}\label{responsemodels:examples}
+
+%%\section{Segmentation and Targeting}\label{sec:segmentation}
+%%\subsection{Theory}\label{segmentation:theory}
+%%\subsection{Computational Infrastructure}\label{segmentation:infrastructure}
+%%\subsection{Examples}\label{segmentation:examples}
+
+%%\section{Positioning}\label{sec:positioning}
+%%\subsection{Theory}\label{positioning:theory}
+%%\subsection{Computational Infrastructure}\label{positioning:infrastructure}
+%%\subsection{Examples}\label{positioning:examples}
+
+%%\section{Strategic Market Analysis}\label{sec:marketanalysis}
+%%\subsection{Theory}\label{marketanalysis:theory}
+%%\subsection{Computational Infrastructure}\label{marketanalysis:infrastructure}
+%%\subsection{Examples}\label{marketanalysis:examples}
+
+%%\section{Strategic Market Decision Making}\label{sec:decisionmaking}
+%%\subsection{Theory}\label{decisionmaking:theory}
+%%\subsection{Computational Infrastructure}\label{decisionmaking:infrastructure}
+%%\subsection{Examples}\label{decisionmaking:examples}
+
+\section{New Product Decisions}\label{sec:product}
+\subsection{Theory}\label{product:theory}
+\subsection{Computational Infrastructure}\label{product:infrastructure}
+\subsection{Examples}\label{product:examples}
+
+%%\section{Advertising and Communications Decisions}\label{sec:advertising}
+%%\subsection{Theory}\label{advertising:theory}
+%%\subsection{Computational Infrastructure}\label{advertising:infrastructure}
+%%\subsection{Examples}\label{advertising:examples}
+
+
+\section{Salesforce and Channel Decision}\label{sec:salesforce}
+\subsection{Theory}\label{salesforce:theory}
+\subsubsection{Linear Assignment Problem}
+The assignment problem is fundamental in combinatorial optimization.
+\subsubsection{Salesforce Alloca}
+
+
+\subsection{Computational Infrastructure}\label{salesforce:infrastructure}
+\subsection{Examples}\label{salesforce:examples}
+
+
+%%\section{Price and Sales Promotions Decisions}\label{sec:price}
+%%\subsection{Theory}\label{price:theory}
+%%\subsection{Computational Infrastructure}\label{price:infrastructure}
+%%\subsection{Examples}\label{price:examples}
+
+%%\section{Data Envelopment Analysis}\label{sec:envelopment}
+%%\subsection{Theory}\label{envelopment:theory}
+%%\subsection{Computational Infrastructure}\label{envelopment:infrastructure}
+%%\subsection{Examples}\label{envelopment:examples}
+
+
+
+%
+\bibliographystyle{abbrvnat}
+\bibliography{tme}
+%
+\end{document}
+

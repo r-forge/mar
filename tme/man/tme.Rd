@@ -1,4 +1,4 @@
-\name{te-package}
+\name{tme-package}
 \alias{tme-package}
 \alias{tme}
 \docType{package}

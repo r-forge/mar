@@ -20,30 +20,34 @@
 \newcommand{\set}[1]{\mathcal{#1}}
 
 \usepackage{Sweave}
+
+
+\title{\pkg{tme} -- Teaching Marketing Engineering
+  with R} 
+\author{Christian Buchta and Stefan Theuﬂl}
 %% \VignetteIndexEntry{Teaching Marketing Engineering}
 
-
-
 \begin{document}
+\maketitle
+\sloppy{}
 
+\begin{abstract}
+Marketing Engineering is 
+The R package~\pkg{tme} provides tools for marketing engineering. in an illustrative way. It's purpose is mainly for teaching.
+\end{abstract}
 
 <<echo=FALSE>>=
 options(width = 75)
 ### for sampling
 set.seed(1707)
+
+library("tme")
 @
 
-\title{Introduction to \pkg{tme} -- Teaching Marketing Engineering
-  with R} 
-\author{Christian Buchta and Stefan Theuﬂl}
-\maketitle
-\sloppy
 
-\abstract{The aim of this package is to provide tools for marketing
-  engineering in an illustrative way. It's purpose is mainly for teaching.}
 
 \section{Introduction}\label{sec:intro}
-This manual is divided in several chapters. In each chapter, one field
+This manual is divided into several chapters. In each chapter, one field
 of marketing engineering is going to be described.
 
 

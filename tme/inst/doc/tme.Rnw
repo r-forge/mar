@@ -41,7 +41,7 @@ options(width = 75)
 ### for sampling
 set.seed(1707)
 
-library("tme")
+library("tme",lib="~/lib/R")
 @
 
 
@@ -51,7 +51,7 @@ This manual is divided into several chapters. In each chapter, one field
 of marketing engineering is going to be described.
 
 
-%%\section{Market Response Models}\label{sec:responsemodels}
+\section{Market Response Models}\label{sec:responsemodels}
 %%\subsection{Theory}\label{responsemodels:theory}
 %%\subsection{Computational Infrastructure}\label{responsemodels:infrastructure}
 %%\subsection{Examples}\label{responsemodels:examples}
@@ -89,13 +89,163 @@ of marketing engineering is going to be described.
 
 \section{Salesforce and Channel Decision}\label{sec:salesforce}
 \subsection{Theory}\label{salesforce:theory}
-\subsubsection{Linear Assignment Problem}
-The assignment problem is fundamental in combinatorial optimization.
-\subsubsection{Salesforce Alloca}
+Selling is one of the most important elements in the marketing
+mix. Many people in a company are engaged in sales and related
+activities. So firms should manage their salesforce
+appropriately. Furthermore salesforce sizing and allocation are
+fundamental issues in this context. Fortunately, there exist many
+models to support decision making in this area. Some of this models
+are going to be presented in this chapter.
+
+\subsubsection{Linear Sum Assignment Problem}
+The assignment problem is famous in both combinatorial optimization
+and linear programming.
+In a \textit{Linear Sum Assignment Problem} a matrix $C = (c_ij)$ is
+given and we want to find a solution in which each row matches a
+column in such a way that the sum of the corresponding entries is
+minimized. The matrix $C$ in the LSAP represents the costs. In the
+marketing sense we want to maximize our profit. Therefore we have to
+find the correspondig columns to each row, so that the sum is a maximum.
+
+For more details regarding the Implementation see \pkg{clue}.
+
+\subsubsection{Salesforce Allocation}
+The best way of setting salesforce size is to increase selling effort
+in each control unit until the marginal cost of increasing selling
+effort is equal to the marginal return from increased sales
+(\cite{beswick77}). It is clear that this ideal situation is not often
+met in practice since there are restrictions one has to face. For
+example there are budget restrictions. This Problem can be
+formulated as follows:
 
 
-\subsection{Computational Infrastructure}\label{salesforce:infrastructure}
+\begin{equation}\label{eq:max}
+\textrm{Maximize Profits  } = Sp - Nv - F,
+\end{equation}
+\begin{equation}\label{eq:constr1}
+\textrm{suvject to } Nv <= L, \textrm{($N$ an integer)}
+\end{equation}
+\begin{equation}\label{eq:constr2}
+S <= L_2
+\end{equation}
+
+For a given Salesforce $N$, maximizing profits (\ref{eq:max}) is
+equivalent to maximizing total sales:
+\begin{equation}\label{eq:max2}
+S = \sum_{i=1}^n r_i
+\end{equation}
+where $r_i$ is the response to the selling effort in control unit $i$.
+The Algorithm works as follows
+\begin{description}
+\item[Step 1] maximize (\ref{eq:max2}) and check if the constraints
+  (\ref{eq:constr1}) and (\ref{eq:constr2}) are satisfied.
+\item[Step 2] If constraints are satisified and profits (\ref{eq:max})
+  have increased, add 1 to $N$ and repeat step 2. When either of this
+  two conditions is violated return to the previous step and stop.
+
+The response function ($r_i$) should be a function which describes
+sales response to selling effort as a function of performance
+indicators (potential, workload, company effort and experience). Or it
+can be a subjective estimate of the response (considering these differnces).
+
+\cite{beswick77} use a response function of the following form:
+\begin{equation}\label{eq:resp}
+r_i = z_i t_i^a + C_i
+\end{equation}
+
+where $r_i$ respectively $z_i$ can be estimated with non-linear
+regression. $t_i$ is the time a salesman spends in area $i$ (which is
+to be calculated).
+The following
+function was found to give good results:
+\begin{equation}\label{eq:zi}
+z_i = 0.3258 (w_i/\overline{w})^0.172 (c_i/\overline{c}^0.646 p_i^0.694
+(m_i/\overline{m})^0.105
+\end{equation}
+$$C_i = 0$$
+$$a = 0.217$$
+
+This is implemented in function \textit{performanceIndicators()}.
+
+\subsubsection{Planning Sales Calls}
+
+Companies with a large salesforce can by improving efficiency and
+effectiveness of managíng sales calls increase their
+profits. \cite{lodish71:callplan})~proposed to use an interactive
+salesman's call planning system called \textit{CALLPLAN} to aid
+salesman or salesmanagment in allocating sales call time more efficiently.
+The aim is to maximize the returns from their calls.
+The model is based on the assumption that the expected sales to each
+client is a function of the average number of calls per effort period
+during a response period (which should be long enough to accomodate
+carryover effects from each effort period)
+
+\textit{CALLPLAN} depends on the formulation of a response function
+(ie. \textit{ADBUDG}, for details see chapter \ref{sec:responsemodels})
+
+The mathematical formulation of this problem can be stated as follows:\newline
+Find the set of $x_i$ to maximize profits $z$
+\begin{equation}\label{eq:callplanmax}
+z = \sum_{i=i}^I a_i r_i (x_i) - e \sum_{j=1}^J N T_j c_j
+\end{equation}
+There are some constraints which have to be hold:
+
+
+
+
+ 
+\subsection{Computational Infrastructure}
+Function \code{solveAP} calculates the assignments and the maximum of
+a given assignment problem. It takes a $n$x$n$ matrix as an argument.
+
+Function \code{beswick()} takes a vector of performance indicators for
+the control units and certain parameters like the budget restriction
+or the maximum sale one can achieve. Furthermore you can set a verbose flag.
+
+Function \code{performanceIndicators()} calculates the performance
+indicator for each control unit. See equation (\ref{eq:zi} for details.
+
+There is a method for \code{coef}. This method returns the selling effort one
+should give to each control unit.
+ 
 \subsection{Examples}\label{salesforce:examples}
+
+<<>>=
+
+## Linear Sum Assignment Problem
+
+data("ap")
+ap
+solveAP(ap)
+
+## Allocating Selling Effort via Dynamic Programming
+
+## some performance indicators
+g <- c(75.36, 28.76, 36.21, 43.28, 56.65, 69.27, 63.04)
+names(g) <- LETTERS[seq(g)]
+
+bm <- beswick(g)
+bm
+coef(bm)
+
+## you can do nonlinear regression or you calculate the
+## performance for each control unit as follows
+
+## workload for each area i
+w <- c(20,25,14,38)
+## prior company experience (market share)
+c <- c(0.35,0.3,0.12,0.32)
+## potential sales in area i
+p <- c(100,150,130,120)
+## regional managers experience (time with the company)
+m <- c(1.5,3,2.5,4)
+
+I <- performanceIndicators(w,c,p,m)
+besw <- beswick(I)
+besw
+
+
+@  
 
 
 %%\section{Price and Sales Promotions Decisions}\label{sec:price}

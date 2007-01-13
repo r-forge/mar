@@ -11,8 +11,6 @@
 # product) and shape parameters of the sales 
 # response functions.
 
-### not ready to release
-
 beswick <- function(g, c=0.2, margin=0.1, cost=1, cost.fixed=0, 
                     max.sales=Inf, max.cost=10, verbose=FALSE) {
 
@@ -96,17 +94,5 @@ performanceIndicators <- function(w,c,p,m){
   z <- 0.3258*(w/mean(w))^0.172*(c/mean(c))^0.646*p*(m/mean(m))^0.105
   z
 }
-
-
-
-
-
-# test
-
-g <- c(75.36, 28.76, 36.21, 43.28, 56.65, 69.27, 63.04)
-names(g) <- LETTERS[seq(g)]
-
-bm <- beswick(g, verbose=TRUE) 
-#print(bm)
 
 ###

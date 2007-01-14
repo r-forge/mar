@@ -30,25 +30,58 @@ eval.callplan <- function(x, r, e,h,m,s,p, details=FALSE) {
 
 # work in progress
 
-### library(cbmisc) copy genetic algorithm
+as.callplan <- function(x){
+  UseMethod(".as.callplan")
+}
 
-### source("optmisc.r") implement adbudg
+.as.callplan.data.frame <- function(x){
+  if(!inherits(x,"data.frame")) stop("'x' is not of class 'data.frame'")
+  out <- as.list(x[1:4])
+  names(out) <- c("e","h","s","m")
+  rn <- rownames(CPEX)
+  if(is.null(rn)) rn <- LETTERS[1:length(out$e)]
+  names(out$e) <- rn
+  out$p <- .adbudg.calibrate.data.frame(x[5:8])
+  class(out) <- "callplan"
+  out
+}
+
+## callplan methods
+
+is.callplan <- function(x){
+  if(!inherits(x,"callplan")) FALSE
+  TRUE
+}
+
+# this is really braindead!
+
+.adbudg.calibrate <- function(yN,yH,yD,yS,w=1/3) {
+    d  <- (yS-1)/(1-yN)
+    c  <-    w  * log(d*(yH-yN)/(yS-yH))/log(0.5) +
+          (1-w) * log(d*(yD-yN)/(yS-yD))/log(1.5)
+    list(a=yS,b=yN,c=c,d=d)
+}
+
+.adbudg.calibrate.data.frame <- function(x) {
+    if (!is.data.frame(x))
+       stop("'x' not a data frame")
+    n <- dim(x)[1]
+    z <- vector("list",n)
+    for (i in seq(n)) {
+        zz <- as.list(x[i,])
+        names(zz) <- NULL
+        z[[i]] <- do.call(.adbudg.calibrate,zz)
+    }
+    names(z) <- rownames(x)
+    z
+}
 
 
-# assemble/calibrate the callplan model
-
-# TODO create a callplan class
-# example for vignette
-#cpm <- as.list(CPEX[1:4])
-#names(cpm) <- c("e","h","s","m")
-#names(cpm$e) <- rownames(CPEX)
-
-#cpm$p <- adbudg.calibrate.data.frame(CPEX[5:8])
 
 # evaluate current plan
 
 #x <- do.call(eval.callplan,c(list(cpm$e), r=2, cpm, 
-             details=TRUE))
+#             details=TRUE))
 #print(x)
 
 #gcp <- gom(eval.callplan, evalArgs=c(r=2, cpm), evalVector=TRUE, 

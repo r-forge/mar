@@ -9,7 +9,8 @@ export(
        "as.indicator",
        "score",
        "importance.utility",
-       "pl.utility"
+       "pl.utility",
+       "gom"
 )
 
 ## conjoint methods
@@ -24,3 +25,6 @@ S3method("choice","conjoint")
 ## choice methods
 S3method("print","choice")
 S3method("summary","choice")
+
+## gom method
+S3method("print","gom")

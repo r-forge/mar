@@ -10,7 +10,13 @@ export(
        "score",
        "importance.utility",
        "pl.utility",
-       "gom"
+       "gom",
+       "beswick",
+       "performanceIndicators",
+       "eval.callplan",
+       "is.callplan","as.callplan",
+       "solveAP"
+       
 )
 
 ## conjoint methods
@@ -28,3 +34,14 @@ S3method("summary","choice")
 
 ## gom method
 S3method("print","gom")
+
+## beswick methods
+S3method("print","beswick")
+S3method("coef","beswick")
+
+## callplan methods
+S3method("as.callplan","data.frame")
+S3method("print","callplan")
+
+## LSAP method
+S3method("print","solveAP")

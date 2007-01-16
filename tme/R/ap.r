@@ -18,7 +18,7 @@ solveAP <- function(x){
   out
 }
 
-print.solveAP <- function(x){
+print.solveAP <- function(x, ...){
   if(!inherits(x,"solveAP")) stop("class of 'x' is not 'solveAP'")
   cn <- colnames(x$matrix)
   rn <- rownames(x$matrix)

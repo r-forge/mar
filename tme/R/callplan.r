@@ -10,11 +10,13 @@
 # and that the decision variable is the number of 
 # calls (integer)
 
+
+## FIXME: eval callplan takes a callplan as an object
 eval.callplan <- function(x, r, e,h,m,s,p, details=FALSE) {
     x <- x / e
     k <- if (is.null(k <- names(x))) seq(x) else k
     y <- sapply(k, function(k)
-        do.call(adbudg, c(as.vector(x[k]),p[[k]])))
+        response(as.vector(x[k]),unlist(p[[k]]),model="adbudg")) ## FIXME: other response models??
     p <- sum(y * m * s)
     z <- r - sum(x * e * h) / 8
     if (z < 0)                  # constraint violated ?
@@ -31,10 +33,10 @@ eval.callplan <- function(x, r, e,h,m,s,p, details=FALSE) {
 # work in progress
 
 as.callplan <- function(x){
-  UseMethod(".as.callplan")
+  UseMethod("as.callplan")
 }
 
-.as.callplan.data.frame <- function(x){
+as.callplan.data.frame <- function(x){
   if(!inherits(x,"data.frame")) stop("'x' is not of class 'data.frame'")
   out <- as.list(x[1:4])
   names(out) <- c("e","h","s","m")
@@ -50,7 +52,15 @@ as.callplan <- function(x){
 
 is.callplan <- function(x){
   if(!inherits(x,"callplan")) FALSE
-  TRUE
+  else TRUE
+}
+
+## FIXME: better print method
+print.callplan <- function(x, ...){
+  if(!inherits(x,"callplan")) stop("'x' must be of class 'callplan'")
+  nr <- length(x$e)       ## THIS IS NOT A GOOD WAY
+  writeLines(paste("A callplan for ",nr,"terretories"))
+  invisible(x)
 }
 
 # this is really braindead!
@@ -76,30 +86,3 @@ is.callplan <- function(x){
     z
 }
 
-
-
-# evaluate current plan
-
-#x <- do.call(eval.callplan,c(list(cpm$e), r=2, cpm, 
-#             details=TRUE))
-#print(x)
-
-#gcp <- gom(eval.callplan, evalArgs=c(r=2, cpm), evalVector=TRUE, 
-#           bounds=data.frame(Lower=rep(0,length(cpm$h)),
-#                             Upper=rep(8,length(cpm$h)),
-#                             row.names=names(cpm$p)),
-#           numVar=1:2, intVar=1:2, trace=TRUE)
-
-#xx <- do.call(eval.callplan,c(list(gcp$bestVar), r=2, cpm, details=TRUE))
-#print(xx)
-
-#op <- par(mfrow = c(1,2), pty="s")
-#barplot(cpm$e, ylab="Calls", 
-#        main=paste("Current:",formatC(x$profit,digits=3)))
-#barplot(gcp$bestVar, ylab="Calls", 
-#        main=paste("Recommended:",formatC(gcp$bestFit,digits=3)))
-#par(op)
-
-## printmethods plotmethods!!
-
-###

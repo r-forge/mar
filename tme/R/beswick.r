@@ -75,14 +75,14 @@ beswick <- function(g, c=0.2, margin=0.1, cost=1, cost.fixed=0,
 
 ## methods
 
-print.beswick <- function(x){
+print.beswick <- function(x, ...){
   if(!inherits(x,"beswick")) stop("'x' must be of class 'beswick'")
   writeLines(paste("maximized profit:",x$profit))
   writeLines(paste("salesforce size:",x$size))
   invisible(x)
 }
 
-coef.beswick <- function(x){
+coef.beswick <- function(x, ...){
   if(!inherits(x,"beswick")) stop("'x' must be of class 'beswick'")
   x$effort
 }

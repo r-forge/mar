@@ -41,7 +41,7 @@ options(width = 75)
 ### for sampling
 set.seed(1707)
 
-library("tme",lib="~/lib/R")
+library("tme")
 @
 
 
@@ -113,7 +113,7 @@ For more details regarding the Implementation see \pkg{clue}.
 The best way of setting salesforce size is to increase selling effort
 in each control unit until the marginal cost of increasing selling
 effort is equal to the marginal return from increased sales
-(\cite{beswick77}). It is clear that this ideal situation is not often
+(\cite{beswick77:dynprogramming}). It is clear that this ideal situation is not often
 met in practice since there are restrictions one has to face. For
 example there are budget restrictions. This Problem can be
 formulated as follows:
@@ -123,7 +123,7 @@ formulated as follows:
 \textrm{Maximize Profits  } = Sp - Nv - F,
 \end{equation}
 \begin{equation}\label{eq:constr1}
-\textrm{suvject to } Nv \leq L, \textrm{($N$ an integer)}
+\textrm{subject to } Nv \leq L, \textrm{($N$ an integer)}
 \end{equation}
 \begin{equation}\label{eq:constr2}
 S \leq L_2
@@ -142,13 +142,14 @@ The Algorithm works as follows
 \item[Step 2] If constraints are satisified and profits (\ref{eq:max})
   have increased, add 1 to $N$ and repeat step 2. When either of this
   two conditions is violated return to the previous step and stop.
+\end{description}
 
 The response function ($r_i$) should be a function which describes
 sales response to selling effort as a function of performance
 indicators (potential, workload, company effort and experience). Or it
 can be a subjective estimate of the response (considering these differnces).
 
-\cite{beswick77} use a response function of the following form:
+\cite{beswick77:dynprogramming} use a response function of the following form:
 \begin{equation}\label{eq:resp}
 r_i = z_i t_i^a + C_i
 \end{equation}
@@ -193,7 +194,7 @@ There are some constraints which have to be hold:
 \begin{itemize}
 \item The amount of time spent on selling and travelling must be less
   then the amount of time available during an average effort period.
-\begin{equation}\label{eq:callconstr1}
+\begin{equation}\label{eq:callplanconstr1}
 \sum_{i=i}^I t_i x_i + \sum_{j=1}^J N T_j u_j \leq T
 \end{equation}
 \item The number of trips to an area is a function of the number of
@@ -213,6 +214,7 @@ Min_i \leq x_i \leq Max_i \textrm{ for } i = 1, \ldots , I
 
  
 \subsection{Computational Infrastructure}
+
 Function \code{solveAP} calculates the assignments and the maximum of
 a given assignment problem. It takes a $n$x$n$ matrix as an argument.
 
@@ -262,6 +264,34 @@ I <- performanceIndicators(w,c,p,m)
 besw <- beswick(I)
 besw
 
+## CALLPLAN
+data("callplan")
+CPEX
+cpm <- as.callplan(CPEX)
+cpm
+
+## current plan
+x <- do.call(eval.callplan,c(list(cpm$e), r=2, cpm, 
+             details=TRUE))
+x
+
+## optimize plan with gom
+gcp <- gom(eval.callplan, evalArgs=c(r=2, cpm), evalVector=TRUE, 
+           bounds=data.frame(Lower=rep(0,length(cpm$h)),
+                             Upper=rep(8,length(cpm$h)),
+                             row.names=names(cpm$p)),
+           numVar=1:2, intVar=1:2, trace=TRUE)
+
+xx <- do.call(eval.callplan,c(list(gcp$bestVar), r=2, cpm, details=TRUE))
+xx
+
+## some plots
+op <- par(mfrow = c(1,2), pty="s")
+barplot(cpm$e, ylab="Calls", 
+        main=paste("Current:",formatC(x$profit,digits=3)))
+barplot(gcp$bestVar, ylab="Calls", 
+        main=paste("Recommended:",formatC(gcp$bestFit,digits=3)))
+par(op)
 
 @  
 
@@ -275,8 +305,6 @@ besw
 %%\subsection{Theory}\label{envelopment:theory}
 %%\subsection{Computational Infrastructure}\label{envelopment:infrastructure}
 %%\subsection{Examples}\label{envelopment:examples}
-
-
 
 %
 \bibliographystyle{abbrvnat}

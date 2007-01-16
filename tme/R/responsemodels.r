@@ -44,8 +44,8 @@ response <- function(x,pars,model="linear"){
               "8" = {if(lenpars<4) stop("not enough parameters!")
                      if(lenpars>4) warning("too many parameters, using only 2 of them!")
                      pars[1] * pars[2]^(pars[3]*x) + pars[4]},
-              "9" = if(lenpars<4) stop("not enough parameters!")
-                    if(lenpars>4) warning("too many parameters, using only 2 of them!")
+              "9" = {if(lenpars<4) stop("not enough parameters!")
+                     if(lenpars>4) warning("too many parameters, using only 2 of them!")
                      pars[2] + (pars[1] - pars[2]) * x^pars[3]/(pars[4] + x^pars[3])}
               )
   y

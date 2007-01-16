@@ -1,0 +1,245 @@
+
+\documentclass[notes=show,beamer]{beamer}
+
+\usepackage{graphicx}
+
+%gute: Goettingen, Copenhagen, Malmoe, Montpellier, Warsaw, Singapore (minimalversion: Pittsburgh)
+\usetheme{Malmoe}
+
+\title{R Package: Teaching Marketing Analytics}
+\author{Stefan Theussl}
+\institute{Department of Statistics and Mathematics\newline
+Vienna University of Economics and Business Administration}
+\date{\today}
+
+\begin{document}
+
+\frame{
+\titlepage
+}
+\section*{Outline}
+\frame{
+\frametitle{Outline}
+\tableofcontents}
+
+
+\section{Concept}
+\frame{\frametitle{Concept}}
+
+\subsection{Introduction}
+
+\frame{
+\frametitle{Introduction}
+
+\begin{itemize}
+
+\item Collection of tools in marketing engineering
+
+\item Contents mainly from \cite{lilien03:me} respectively \cite{lilien92:mm}
+
+\item ``Meta'' package, as it uses many external functions
+
+\item The purpose is mainly in teaching
+
+\end{itemize}
+}
+
+
+\subsection{Package structure}
+
+\frame{
+\frametitle{Object oriented}
+
+\begin{itemize}
+
+\item S3 methods (``print'', ``plot'')
+
+\item Flexibility
+
+\item Extensibility
+
+\item 
+
+\item 
+
+\end{itemize}
+}
+
+\frame{
+\frametitle{Interfacing}
+
+\begin{itemize}
+
+\item easy to use
+
+\item but 
+
+\item 
+
+\item 
+
+\item 
+
+\end{itemize}
+}
+
+\frame{
+\frametitle{Helpfiles}
+
+\begin{itemize}
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\end{itemize}
+}
+
+\frame{
+\frametitle{Outlook}
+
+\begin{itemize}
+
+\item Finish interfacing and importing of code
+
+\item Package vignette
+
+\item Helpfiles
+
+\item Demos (sliders, complex examples)
+
+\item ``Fill the database''
+
+\end{itemize}
+}
+
+\section{Implementations}
+\frame{\frametitle{Implementations
+}}
+
+
+\subsection{Salesforce - Chapter 9}
+\frame{
+\frametitle{Salesforce - Chapter 9}
+
+\begin{itemize}
+
+\item LSAP
+
+\item beswick
+
+\item CALLPLAN
+
+\item (response models)
+
+\end{itemize}
+}
+
+
+\frame{
+\frametitle{}
+
+\begin{itemize}
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\end{itemize}
+}
+
+\subsection{New Product Decisions - Chapter 7}
+\frame{\frametitle{New Product Decisions - Chapter 7}
+
+\begin{itemize}
+\item conjoint
+\end{itemize}
+
+}
+
+\subsection{Open to discuss}
+\frame{
+\frametitle{Open to discuss}
+
+\begin{itemize}
+
+\item citing
+
+\item further work (outlook)
+
+\item release
+
+\item maintaining
+
+\end{itemize}
+
+}
+
+\section{Diploma Thesis}
+\frame{\frametitle{Diploma Thesis
+}}
+
+
+\frame{
+\frametitle{Diploma Thesis - Overview}
+
+\begin{itemize}
+
+\item High Performance Computing and its Applications in R
+
+\item HPC Theory (rather technical)
+
+\item Applications in finance (option pricing)
+ 
+\item Marketing (parallel SVMs)
+
+\item Mathematics - statistics (optimization)
+
+\end{itemize}
+
+}
+
+\frame{
+\frametitle{Diploma Thesis - Applcation in Marketing}
+
+\begin{itemize}
+
+\item Classification with support vector machines
+
+\item Parallelization Algorithm
+
+\item Benchmarking
+
+\item Example in marketing context
+
+\end{itemize}
+
+}
+
+\bibliographystyle{plainnat}
+\bibliography{../tme/inst/doc/tme.bib}
+
+
+\begin{frame}
+
+\textbf{Thank you for your attention}
+
+\end{frame}
+
+
+
+\end{document}

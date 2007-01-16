@@ -52,9 +52,35 @@ of marketing engineering is going to be described.
 
 
 \section{Market Response Models}\label{sec:responsemodels}
-%%\subsection{Theory}\label{responsemodels:theory}
+Marketing response models in their simple form try to describe the
+relationship between advertising effort and sales. There are many
+different types of response models. They differ not only in their
+shape but also in other dimensions like linearity vs. nonlinearity,
+certainty vs. uncertainty, or determinstic vs. stochastic and so forth.
+In the following section a brief survey of the available models in our
+package will be presented.
+
+\subsection{Theory}\label{responsemodels:theory}
+Implemented Response Models (see \cite{lilien92:mm}):
+\begin{description}
+\item[Linear] $ Q = a + bX, b > 0$
+\item[Power Series] $ Q = a + bX + cX^2 + \ldots $
+%% TODO
+%\item[Fractional Root] $ Q = a + bX^c $
+%\item[Semilog]
+%\item[Multiplicative]
+%\item[Exponential]
+%\item[Log Reciprocal]
+%\item[Modified Exponential]
+%\item[Logistic]
+%\item[Gompertz]
+%\item[Adbudg]
+\end{description}
+
+
 %%\subsection{Computational Infrastructure}\label{responsemodels:infrastructure}
-%%\subsection{Examples}\label{responsemodels:examples}
+\subsection{Examples}\label{responsemodels:examples}
+
 
 %%\section{Segmentation and Targeting}\label{sec:segmentation}
 %%\subsection{Theory}\label{segmentation:theory}

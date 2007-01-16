@@ -2,6 +2,9 @@
 ## Marketing Engineering p.33-37
 ## implemented by theussl
 
+
+## FIXME constraints (see Marketing Models Apendix C)
+
 response <- function(x,pars,model="linear"){
   models <- c("linear",
               "power_series",

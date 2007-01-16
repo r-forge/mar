@@ -37,9 +37,9 @@ Vienna University of Economics and Business Administration}
 
 \item Contents mainly from \cite{lilien03:me} respectively \cite{lilien92:mm}
 
-\item ``Meta'' package, as it uses many external functions
+\item Uses many functions of other packages
 
-\item The purpose is mainly in teaching
+\item The main purpose is to use it for  teaching
 
 \end{itemize}
 }
@@ -48,69 +48,61 @@ Vienna University of Economics and Business Administration}
 \subsection{Package structure}
 
 \frame{
-\frametitle{Object oriented}
+\frametitle{Overview - goals}
 
 \begin{itemize}
 
-\item S3 methods (``print'', ``plot'')
+\item Generic functions and methods (S3) 
 
 \item Flexibility
 
 \item Extensibility
 
-\item 
-
-\item 
+\item Usability
 
 \end{itemize}
 }
 
 \frame{
-\frametitle{Interfacing}
+\frametitle{Function interfaces}
 
 \begin{itemize}
 
-\item easy to use
+\item a lot of possibilities (lists, vectors, \ldots)
 
-\item but 
+\item intuitive, as it is for teaching 
 
-\item 
+\item it should meet the coding standards of R\footnote{see \cite{Rcore:writingRext}}
 
-\item 
+\item GUI, for certain tasks (demos)
 
-\item 
+\item Wrapper functions
 
 \end{itemize}
 }
 
 \frame{
-\frametitle{Helpfiles}
+\frametitle{Documentation}
 
 \begin{itemize}
 
-\item 
+\item R help
 
-\item 
+\item Package vignette unites theory and examples in one document
 
-\item 
+\item Contents mainly from \cite{lilien03:me}
 
-\item 
-
-\item 
-
-\item 
-
-\item 
+\item more data - more examples
 
 \end{itemize}
 }
 
 \frame{
-\frametitle{Outlook}
+\frametitle{Todo}
 
 \begin{itemize}
 
-\item Finish interfacing and importing of code
+\item Interfacing and importing of code
 
 \item Package vignette
 
@@ -120,7 +112,10 @@ Vienna University of Economics and Business Administration}
 
 \item ``Fill the database''
 
+\item Release on R-forge
+
 \end{itemize}
+
 }
 
 \section{Implementations}
@@ -134,30 +129,31 @@ Vienna University of Economics and Business Administration}
 
 \begin{itemize}
 
-\item LSAP
+\item LSAP\footnote{see \textbf{clue}}
 
-\item beswick
+\item beswick\footnote{see \cite{beswick77:salesforce}}
 
-\item CALLPLAN
-
-\item (response models)
+\item CALLPLAN\footnote{see \cite{lodish71:callplan}}
 
 \end{itemize}
 }
 
 
+\subsection{Response Models -Chapter 2}
 \frame{
-\frametitle{}
+\frametitle{Response Models - Chapter 2}
 
 \begin{itemize}
 
-\item 
+\item ADBUDG, exponential and co. \footnote{see \cite{lilien92:mm}}
 
-\item 
+\item unique interface
 
-\item 
+\item TODO: model fitting
 
-\item 
+\item own class?
+
+\item GUI: slider
 
 \end{itemize}
 }
@@ -189,10 +185,15 @@ Vienna University of Economics and Business Administration}
 
 }
 
+
+\bibliographystyle{plainnat}
+\bibliography{../tme/inst/doc/tme.bib}
+
+
+
 \section{Diploma Thesis}
 \frame{\frametitle{Diploma Thesis
 }}
-
 
 \frame{
 \frametitle{Diploma Thesis - Overview}
@@ -229,10 +230,6 @@ Vienna University of Economics and Business Administration}
 \end{itemize}
 
 }
-
-\bibliographystyle{plainnat}
-\bibliography{../tme/inst/doc/tme.bib}
-
 
 \begin{frame}
 

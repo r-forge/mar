@@ -15,7 +15,8 @@ export(
        "performanceIndicators",
        "eval.callplan",
        "is.callplan","as.callplan",
-       "solveAP"
+       "solveAP",
+       "response"
        
 )
 

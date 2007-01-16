@@ -59,7 +59,7 @@ is.callplan <- function(x){
 print.callplan <- function(x, ...){
   if(!inherits(x,"callplan")) stop("'x' must be of class 'callplan'")
   nr <- length(x$e)       ## THIS IS NOT A GOOD WAY
-  writeLines(paste("A callplan for ",nr,"terretories"))
+  writeLines(paste("A callplan for ",nr,"territories"))
   invisible(x)
 }
 

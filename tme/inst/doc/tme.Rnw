@@ -22,9 +22,9 @@
 \usepackage{Sweave}
 
 
-\title{\pkg{tme} -- Teaching Marketing Engineering
-  with R} 
-\author{Christian Buchta and Stefan Theuﬂl}
+\title{\pkg{tme}\newline
+Teaching Marketing Engineering with R} 
+\author{Christian Buchta and Stefan Theu{\ss}l}
 %% \VignetteIndexEntry{Teaching Marketing Engineering}
 
 \begin{document}
@@ -32,8 +32,9 @@
 \sloppy{}
 
 \begin{abstract}
-Marketing Engineering is 
-The R package~\pkg{tme} provides tools for marketing engineering. in an illustrative way. It's purpose is mainly for teaching.
+Marketing Engineering is important for analysis and decision making in
+the context of Marketing. 
+The R package~\pkg{tme} provides tools for marketing engineering. It's purpose is mainly for teaching.
 \end{abstract}
 
 <<echo=FALSE>>=
@@ -81,6 +82,21 @@ Implemented Response Models (see \cite{lilien92:mm}):
 %%\subsection{Computational Infrastructure}\label{responsemodels:infrastructure}
 \subsection{Examples}\label{responsemodels:examples}
 
+\begin{figure}
+  \centering
+<<fig=TRUE,echo=TRUE>>=
+
+x <- c(1:1000)
+par(mfrow=c(2,2))
+plot(x,response(x,c(5,0.004),model="exponential"),xlab="advertising effort",ylab="sales",type="l",main="Exponential Model")
+plot(x,response(x,c(800,0.004,100),model="modexp"),xlab="advertising effort",ylab="sales",type="l",main="Modified Exponential Model")
+plot(x,response(x,c(800,-1,0.005, 100),model="logistic"),xlab="advertising effort",ylab="sales",type="l",main="Logistic Model")
+plot(x,response(x,c(900,100,2,50000),model="adbudg"),xlab="advertising effort",ylab="sales",type="l",main="ADBUDG")
+
+@ %
+  \caption{A sample of response models.}
+  \label{fig:responsemodels}
+\end{figure}
 
 %%\section{Segmentation and Targeting}\label{sec:segmentation}
 %%\subsection{Theory}\label{segmentation:theory}
@@ -102,6 +118,7 @@ Implemented Response Models (see \cite{lilien92:mm}):
 %%\subsection{Computational Infrastructure}\label{decisionmaking:infrastructure}
 %%\subsection{Examples}\label{decisionmaking:examples}
 
+\newpage
 \section{New Product Decisions}\label{sec:product}
 \subsection{Theory}\label{product:theory}
 \subsection{Computational Infrastructure}\label{product:infrastructure}
@@ -113,6 +130,7 @@ Implemented Response Models (see \cite{lilien92:mm}):
 %%\subsection{Examples}\label{advertising:examples}
 
 
+\newpage
 \section{Salesforce and Channel Decision}\label{sec:salesforce}
 \subsection{Theory}\label{salesforce:theory}
 Selling is one of the most important elements in the marketing
@@ -183,16 +201,14 @@ r_i = z_i t_i^a + C_i
 where $r_i$ respectively $z_i$ can be estimated with non-linear
 regression. $t_i$ is the time a salesman spends in area $i$ (which is
 to be calculated).
-The following
-function was found to give good results:
+The following function was found to give good results:
 \begin{equation}\label{eq:zi}
-z_i = 0.3258 (w_i/\bar{w})^0.172 (c_i/\bar{c}^0.646 p_i^0.694
-(m_i/\bar{m})^0.105
+z_i = 0.3258 (w_i/\bar{w})^{0.172} (c_i/\bar{c})^{0.646} p_i^{0.694}
+(m_i/\bar{m})^{0.105}
 \end{equation}
 $$C_i = 0$$
-$$a = 0.217$$
 
-This is implemented in function \textit{performanceIndicators()}.
+$$a = 0.217$$
 
 \subsubsection{Planning Sales Calls}
 
@@ -249,12 +265,15 @@ the control units and certain parameters like the budget restriction
 or the maximum sale one can achieve. Furthermore you can set a verbose flag.
 
 Function \code{performanceIndicators()} calculates the performance
-indicator for each control unit. See equation (\ref{eq:zi} for details.
+indicator for each control unit. See equation (\ref{eq:zi}) for details.
 
 There is a method for \code{coef}. This method returns the selling effort one
 should give to each control unit.
  
 \subsection{Examples}\label{salesforce:examples}
+\begin{itemize}
+
+\item Linear Sum Assignemt Problem
 
 <<>>=
 
@@ -263,6 +282,10 @@ should give to each control unit.
 data("ap")
 ap
 solveAP(ap)
+@ 
+
+\item Allocating Selling Effort
+<<>>=
 
 ## Allocating Selling Effort via Dynamic Programming
 
@@ -289,6 +312,11 @@ m <- c(1.5,3,2.5,4)
 I <- performanceIndicators(w,c,p,m)
 besw <- beswick(I)
 besw
+@ 
+
+\item Callplan
+
+<<>>=
 
 ## CALLPLAN
 data("callplan")
@@ -310,7 +338,11 @@ gcp <- gom(eval.callplan, evalArgs=c(r=2, cpm), evalVector=TRUE,
 
 xx <- do.call(eval.callplan,c(list(gcp$bestVar), r=2, cpm, details=TRUE))
 xx
+@ 
 
+\begin{figure}
+\centering
+<<fig=TRUE>>=
 ## some plots
 op <- par(mfrow = c(1,2), pty="s")
 barplot(cpm$e, ylab="Calls", 
@@ -319,8 +351,12 @@ barplot(gcp$bestVar, ylab="Calls",
         main=paste("Recommended:",formatC(gcp$bestFit,digits=3)))
 par(op)
 
-@  
+@ 
+  \caption{Optimizing Callplan}
+  \label{fig:callplan}
+\end{figure} 
 
+\end{itemize}
 
 %%\section{Price and Sales Promotions Decisions}\label{sec:price}
 %%\subsection{Theory}\label{price:theory}
@@ -333,6 +369,7 @@ par(op)
 %%\subsection{Examples}\label{envelopment:examples}
 
 %
+\newpage
 \bibliographystyle{abbrvnat}
 \bibliography{tme}
 %
